@@ -99,9 +99,10 @@ for length in range(min+1,max+1):
                         clashes[clash] = []
                     clashes[clash].append((roots[left_length][left_root], roots[right_length][right_root]))
 
+
 # Output clashes.
 print '<ol>'
-for clash in clashes.keys():
+for clash in sorted(clashes.keys()):
     print '<li>'
     slug = roots[len(clash)][clash]['slug']
     print '<a href="http://www.reta-vortaro.de/revo/art/' + slug + '.html">'
