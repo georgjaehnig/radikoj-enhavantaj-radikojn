@@ -20,6 +20,7 @@ def parse_entities(s):
     s = s.replace('&Ubreve;', 'Ŭ')
     return s
 
+# Get all files.
 filenames = glob.glob('revo/xml/*.xml')
 slugs = {}
 
@@ -28,9 +29,21 @@ roots = {}
 for i in range(1,19):
     roots[i] = {}
 
+# Roots will be saved in a dictionary.
+#
+# Example:
+# roots[6][protest] = {root: protest, slug: protest}
+#
+# Explanation:
+# 6 = word length
+# root = Esperanto root
+# slug = filename in ReVo
+
 for filename in filenames:
     f = open(filename, 'r')
     content = f.read()
+    # Yes, RegExes are ugly, but after 2 hours dealing with various XML parsers decoding XML entities,
+    # this was the best way to go.
     m = re.search('<rad>(.*)</rad>', content)
     f.close()
     if not m:
@@ -61,8 +74,10 @@ max = 18
 #length = 3
 clashes = {}
 
+# For all word lengths.
 for length in range(min+1,max+1):
     #print length
+    # The middle wanders through the word length from left to right.
     for middle in range(1, length):
         left_from    = 0
         left_to      = middle-1
@@ -75,6 +90,8 @@ for length in range(min+1,max+1):
 
         for left_root in roots[left_length].keys():
             for right_root in roots[right_length].keys():
+                # Put new root together
+                # and test if it exists.
                 clash = left_root + right_root
                 if clash in roots[length]:
                     #print left_root, right_root
@@ -82,7 +99,7 @@ for length in range(min+1,max+1):
                         clashes[clash] = []
                     clashes[clash].append((roots[left_length][left_root], roots[right_length][right_root]))
 
-#print clashes
+# Output clashes.
 print '<ol>'
 for clash in clashes.keys():
     print '<li>'
@@ -107,7 +124,5 @@ for clash in clashes.keys():
     print '</ol>'
     print '</li>'
 print '</ol>'
-
-# l + r = f
 
 
