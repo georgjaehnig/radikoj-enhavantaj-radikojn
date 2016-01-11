@@ -6,5 +6,5 @@ Skripto por trovi radkojn kiuj enhavas radikojn.
 
 ## La listo
 
-[eligo.html](eligo.html)
+[eligo.html](http://htmlpreview.github.io/?https://github.com/georgjaehnig/radikoj-enhavantaj-radikojn/blob/master/eligo.html)
 
